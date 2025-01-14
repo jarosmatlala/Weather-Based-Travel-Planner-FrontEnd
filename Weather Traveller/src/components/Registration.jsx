@@ -5,9 +5,8 @@ const Registration = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
-        username: '',
-        password: '',
-        confirmPassword: ''
+        email: '',
+        password: ''
     });
 
     const [errors, setErrors] = useState({});
@@ -25,26 +24,44 @@ const Registration = () => {
         if (!formData.name) {
             errors.name = "Name and Surname are required";
         }
-        if (!formData.username) {
-            errors.username = "Username is required";
+        if (!formData.email) {
+            errors.email = "Email is required";
         }
         if (!formData.password) {
             errors.password = "Password is required";
-        }
-        if (formData.password !== formData.confirmPassword) {
-            errors.confirmPassword = "Passwords do not match";
         }
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (validateForm()) {
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            users.push(formData);
-            console.log("Users to be stored:", users);
-            localStorage.setItem('users', JSON.stringify(users));
-            navigate('/LogIn');
+            try {
+                const response = await fetch("http://localhost:5000/api/users/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: formData.name,
+                        email: formData.email,
+                        password: formData.password,
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    console.log("Registration successful:", data);
+                    navigate('/LogIn');
+                } else {
+                    setErrors({ general: data.message });
+                    console.error("Registration error:", data);
+                }
+            } catch (error) {
+                setErrors({ general: "Error during registration" });
+                console.error("Error during registration:", error);
+            }
         }
     };
 
@@ -62,15 +79,15 @@ const Registration = () => {
                 />
                 {errors.name && <p className="error">{errors.name}</p>}
 
-                <p>Username</p>
+                <p>Email</p>
                 <input
                     className='input'
-                    type="text"
-                    name="username"
-                    value={formData.username}
+                    type="email"
+                    name="email"
+                    value={formData.email}
                     onChange={handleChange}
                 />
-                {errors.username && <p className="error">{errors.username}</p>}
+                {errors.email && <p className="error">{errors.email}</p>}
 
                 <p>Password</p>
                 <input
@@ -82,15 +99,7 @@ const Registration = () => {
                 />
                 {errors.password && <p className="error">{errors.password}</p>}
 
-                <p>Re-Enter Password</p>
-                <input
-                    className='input'
-                    type="password"
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                />
-                {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
+                {errors.general && <p className="error">{errors.general}</p>}
 
                 <div className='btnReg'>
                     <button className='btn' onClick={handleSubmit}>Register</button>
