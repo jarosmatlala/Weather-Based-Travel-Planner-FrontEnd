@@ -63,6 +63,10 @@ const WeatherScr = () => {
     navigate('/Weekly', { state: { forecastData: ForecastData } });
   }
 
+  const handleFavorites = () => {
+    navigate('/Favorites');
+  };
+
   const toggleTemperatureUnit = () => {
     setIsCelsius(!isCelsius);
   };
@@ -127,6 +131,10 @@ const WeatherScr = () => {
 
       <button className='btn' onClick={handleSubmit}>Weekly</button>
     </div>
+
+    <div>
+        <button className="btn" onClick={handleFavorites}>Favorites</button>
+      </div>
 
     </div>
   );
