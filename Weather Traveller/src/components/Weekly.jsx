@@ -1,43 +1,111 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import LogIn from './LogIn';
-import WeatherScr from './WeatherScr';
-import Registration from "./Registration";
-import Weekly from './Weekly';
-import Hourly from './Hourly';
-import { createContext , useState } from 'react';
-import ButtonComponent from './ButtonComponent';
 
-export const AuthContext = createContext();
+import React, { useState } from 'react';
+import './Weekly.css';
+import { useLocation } from 'react-router-dom';
+
+const Weekly = () => {
+const location = useLocation();
+const forecastData = location.state?.forecastData;
+
+console.log("Forecast data received:", forecastData);
+
+const [selectedDay, setSelectedDay] = useState(null);
 
 
-function App() {
-    const [auth, setAuth] = useState(localStorage.getItem('auth') || null);
-
-    const PrivateRoute = ({ element }) => {
-        return auth ? element : <Navigate to="/login" />;
-    };
-        
-    return (
-        <AuthContext.Provider value={{auth,setAuth}}>
-           
-            <BrowserRouter>
-            <NavBar/>
-                <Routes>
-                <Route index element={<Registration />} />
-                    <Route path="/login" element={<LogIn />} />
-                    <Route path="/WeatherScr" element={<PrivateRoute element={<WeatherScr />} />} />
-                    <Route path='Weekly' element={<Weekly />} />
-                    <Route path='/hourly/:day' element={<PrivateRoute element={<Hourly />} />} /> 
-
-                    <Route path="/registration" element={<Registration />} />
-                    <Route path='/ButtonComponent' element={<ButtonComponent />} />
-                </Routes>
-            </BrowserRouter>
-            </AuthContext.Provider>
-    );
+if (!forecastData) {
+    return <p>Loading weekly forecast...</p>;
 }
 
-export default App;
+const cityName = forecastData.city.name;
+
+const groupByDay = (list) => {
+  const days = {};
+
+  list.forEach(item => {
+    const date = new Date(item.dt_txt);
+    const day = date.toLocaleDateString('en-US', { weekday: 'long' });
+
+
+    if (!days[day]) {
+      days[day] = [];
+    }
+    days[day].push(item);
+  });
+  return(days);
+};
+
+const days = groupByDay (forecastData.list);
+const dayNames = Object.keys(days);
+
+
+const handleDayClick = (day) =>{
+setSelectedDay (day) 
+};
+
+const getHourlyData = (day) =>{
+  return days[day] || [];
+};
+
+    return (
+
+        <div className="Forecast">
+
+            <h1>Weekly Weather Forecast for {cityName}</h1>
+
+            <table>
+  <thead>
+    <tr>
+      <th>Day</th>
+      <th></th>
+      <th>Temperature</th>
+    </tr>
+  </thead>
+  <tbody>
+    {dayNames.map((item, index) => (  
+       <tr key={index} onClick={() => handleDayClick(item)} style={{ cursor: 'pointer' }}>
+       <td>{item}</td>
+       <td className="expand">
+         <img src={`http://openweathermap.org/img/wn/${days[item][0].weather[0].icon}@2x.png`} alt="weather icon" />
+       </td>
+       <td>{days[item][0].main.temp}°C</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+{selectedDay && (
+      <div className="HourlyForecast">
+        <h2>Hourly Weather for {selectedDay}</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Icon</th>
+              <th>Temperature</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {getHourlyData(selectedDay).map((item, index) => (
+              <tr key={index}>
+                <td>{new Date(item.dt_txt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</td>
+                <td className="expand">
+                  <img src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} alt="weather icon" />
+                </td>
+                <td>{item.main.temp}°C</td>
+                <td>{item.weather[0].description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )}
+
+        </div>
+
+    );
+};
+
+export default Weekly;
 
 
