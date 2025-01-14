@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import './Registration.css';
 import image from "../assets/sunny-weather.jpg"
+import { useState } from "react";
 
 
 
