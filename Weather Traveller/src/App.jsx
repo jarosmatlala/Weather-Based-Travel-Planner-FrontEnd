@@ -6,8 +6,7 @@ import Weekly from './components/Weekly';
 import Hourly from './components/Hourly';
 import { createContext , useState } from 'react';
 import ButtonComponent from './components/ButtonComponent';
-import Favorites from "./components/Favorites";
-
+import Favourites from './components/Favourites';
 
 export const AuthContext = createContext();
 
@@ -33,8 +32,7 @@ function App() {
 
                     <Route path="/registration" element={<Registration />} />
                     <Route path='/ButtonComponent' element={<ButtonComponent />} />
-                    <Route path="/Favorites" element={<Favorites />} />
-                </Routes>
+                    <Route path="/favourites" element={<Favourites />} /> </Routes>
             </BrowserRouter>
             </AuthContext.Provider>
     );

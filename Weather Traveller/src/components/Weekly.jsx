@@ -1,17 +1,16 @@
 
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import './Weekly.css';
 
 
 const Weekly = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const forecastData = location.state?.forecastData;
-
   console.log("Forecast data received:", forecastData);
-
   const [selectedDay, setSelectedDay] = useState(null);
-
+  const [favourites, setFavourites] = useState([]);
 
   if (!forecastData) {
     return <p>Loading weekly forecast...</p>;
@@ -72,12 +71,20 @@ const Weekly = () => {
             activities: suggestActivities(item)
            })); };
 
+
+  const saveToFavourites = () => { 
+    const updatedFavourites = [...favourites, cityName];
+    setFavourites(updatedFavourites); 
+     navigate('/favourites', { state: { favourites: updatedFavourites }
+     }); 
+     };
+
     return (
 
       <div className="Forecast">
 
         <h1>Weekly Weather Forecast for {cityName}</h1>
-
+        <button onClick={saveToFavourites} className="saveButton">Save Location</button>
         <table>
           <thead>
             <tr>
