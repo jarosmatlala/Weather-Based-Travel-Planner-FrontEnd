@@ -58,7 +58,7 @@ const WeatherScr = () => {
   }
 
   const handleFavorites = () => {
-    navigate('/Favorites');
+    navigate('/Favourites');
   };
 
   const toggleTemperatureUnit = () => {
@@ -109,7 +109,7 @@ const WeatherScr = () => {
           <button className='btn' onClick={handleSubmit}>Weekly</button>
         </div>
         <div>
-          <button className="btn" onClick={handleFavorites}>Favorites</button>
+          <button className="btn" onClick={handleFavorites}>Favourites</button>
         </div>
       </div>
     </div>
