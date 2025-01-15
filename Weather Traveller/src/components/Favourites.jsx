@@ -3,10 +3,8 @@ import { useSelector } from 'react-redux';
 import './Favourites.css';
 
 const Favourites = () => {
-  const userEmail = useSelector((state) => state.user.user);
+  const userEmail = useSelector((state) => state.user.user.email);
   const [favourites, setFavourites] = useState([]);
-
-  console.log(userEmail)
 
   useEffect(() => {
     if (userEmail) {
