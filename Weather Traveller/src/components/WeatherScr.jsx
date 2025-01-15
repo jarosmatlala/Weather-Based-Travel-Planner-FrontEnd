@@ -11,7 +11,7 @@ const WeatherScr = () => {
   const navigate = useNavigate();
   const [weatherData, setWeatherData] = useState(null);
   const [ForecastData, setForecastData] = useState([]);
-  const [city, setCity] = useState('Pretoria');
+  const [city, setCity] = useState('');
   const [isCelsius, setIsCelsius] = useState(true);
 
   const search = async (location) => {
@@ -72,11 +72,10 @@ const WeatherScr = () => {
       <div className="search-bar">
         <input
           type="text"
-          placeholder="Search"
+          placeholder="Search A City By Name"
           value={city}
           onChange={(e) => setCity(e.target.value)}
         />
-        <img className='search' src={search_icon} alt="search icon" onClick={() => search(city)} />
       </div>
       <img src={sunny} alt="sunny weather" className='weather-icon' />
       <p className='temperature'>
