@@ -1,12 +1,11 @@
-import { useEffect, useState,} from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-
+import './WeatherScr.css';
 
 import search_icon from "../assets/search.png";
 import sunny from "../assets/sunny-weather.jpg";
 import humidity from "../assets/humidity.png";
 import wind from "../assets/wind.png";
-
 
 const WeatherScr = () => {
   const navigate = useNavigate();
@@ -14,7 +13,6 @@ const WeatherScr = () => {
   const [ForecastData, setForecastData] = useState([]);
   const [city, setCity] = useState('Pretoria');
   const [isCelsius, setIsCelsius] = useState(true);
-
 
   const search = async (location) => {
     const appId = "a0580ecd47ebbb66a743ce57ba2ee19f";
@@ -40,26 +38,22 @@ const WeatherScr = () => {
       if (forecastResponse.ok){
         setForecastData(forecastData);
         console.log('API respond:', forecastData);
-      }else {
-            console.error('Forecast API error:', forecastData);
-        }
-
+      } else {
+        console.error('Forecast API error:', forecastData);
+      }
 
     } catch (error) {
       console.error('Error fetching weather data:', error);
     }
-
-
-
   };
 
   useEffect(() => {
     console.log("Component rendering, initiating search for:", city);
     search(city);
-    console.log("Forecast data:",ForecastData);
+    console.log("Forecast data:", ForecastData);
   }, [city]);
 
-  const handleSubmit = () =>{
+  const handleSubmit = () => {
     navigate('/Weekly', { state: { forecastData: ForecastData } });
   }
 
@@ -71,9 +65,7 @@ const WeatherScr = () => {
     setIsCelsius(!isCelsius);
   };
 
-  const convertToKelvin = (tempCelsius) => {
-    return tempCelsius + 273.15;
-  };
+  const convertToKelvin = (tempCelsius) => tempCelsius + 273.15;
 
   return (
     <div className="weather">
@@ -86,31 +78,17 @@ const WeatherScr = () => {
         />
         <img className='search' src={search_icon} alt="search icon" onClick={() => search(city)} />
       </div>
-
-
       <img src={sunny} alt="sunny weather" className='weather-icon' />
-
-
-      <p className='temperature'> {weatherData ? 
+      <p className='temperature'>
+        {weatherData ? 
           `${isCelsius ? weatherData.main.temp : convertToKelvin(weatherData.main.temp)}°${isCelsius ? 'C' : 'K'}` 
-          : 'N/A'}
-
-          </p>
-
-     
-      
-      <div className="Main-Body">
-      <div>
-        <button className="swt-btn" onClick={toggleTemperatureUnit} onMouseEnter={toggleTemperatureUnit}onMouseLeave={toggleTemperatureUnit}>Switch</button>
-      </div>
-    </div>
-      
-
-
+          : 'N/A'
+        }
+      </p>
       <p className='location'>{city}</p>
       <div className='weather-data'>
         <div className='col'>
-          <img src={humidity} alt="humidity" />
+          <img src={humidity} alt="humidity"/>
           <div>
             <p>{weatherData ? `${weatherData.main.humidity}%` : 'N/A'}</p>
             <span>Humidity</span>
@@ -119,23 +97,22 @@ const WeatherScr = () => {
         <div className='col'>
           <img src={wind} alt="wind speed" />
           <div>
-            <p>{weatherData ? `${weatherData.wind.speed} km/h` : 'N/A'}</p>
+            <p>{weatherData ? `${weatherData.wind.speed} km/h` : 'N:A' }</p>
             <span>Wind Speed</span>
           </div>
         </div>
       </div>
-
-
-
-    <div>
-
-      <button className='btn' onClick={handleSubmit}>Weekly</button>
-    </div>
-
-    <div>
-        <button className="btn" onClick={handleFavorites}>Favorites</button>
+      <div className="Main-Body">
+        <div>
+          <button className="swt-btn" onClick={toggleTemperatureUnit}>Switch</button>
+        </div>
+        <div>
+          <button className='btn' onClick={handleSubmit}>Weekly</button>
+        </div>
+        <div>
+          <button className="btn" onClick={handleFavorites}>Favorites</button>
+        </div>
       </div>
-
     </div>
   );
 };

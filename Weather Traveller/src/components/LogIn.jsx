@@ -1,6 +1,9 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../App';
+import './LogIn.css';
+import image from "../assets/sunny-weather.jpg"
+
 
 const LogIn = () => {
   const navigate = useNavigate();
@@ -59,10 +62,16 @@ const LogIn = () => {
   };
 
   return (
-    <div className="heading">
-      <h1>Hello, Please Log In For Easy Access</h1>
-      <div>
-        <p>Email</p>
+      <div className="login-container">
+      <div className="login-image">
+                    <img src={image} ></img>
+      </div>
+      <div className="login-form">
+        <h1>Welcome Back!</h1>
+        <p className="subheading">Log in to access your Application.</p>
+        <div>
+
+        <p className="par">Email</p>
         <input
           className="input"
           type="email"
@@ -72,7 +81,7 @@ const LogIn = () => {
         />
         {errors.email && <p className="error">{errors.email}</p>}
 
-        <p>Password</p>
+        <p className="par">Password</p>
         <input
           className="input"
           type="password"
@@ -89,6 +98,7 @@ const LogIn = () => {
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 };
