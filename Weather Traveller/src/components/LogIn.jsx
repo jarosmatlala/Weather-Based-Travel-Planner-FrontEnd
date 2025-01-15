@@ -1,13 +1,15 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../redux/userSlice';
 import { AuthContext } from '../App';
 import './LogIn.css';
-import image from "../assets/sunny-weather.jpg"
-
+import image from "../assets/sunny-weather.jpg";
 
 const LogIn = () => {
   const navigate = useNavigate();
   const { setAuth } = useContext(AuthContext);
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -48,8 +50,8 @@ const LogIn = () => {
         });
         const data = await response.json();
         if (response.ok) {
+          dispatch(setUser({ email: formData.email }));
           setAuth(formData.email);
-          localStorage.setItem('auth', formData.email);
           navigate('/WeatherScr');
         } else {
           setErrors({ general: data.message });
@@ -62,43 +64,42 @@ const LogIn = () => {
   };
 
   return (
-      <div className="login-container">
+    <div className="login-container">
       <div className="login-image">
-                    <img src={image} ></img>
+        <img src={image} alt="weather" />
       </div>
       <div className="login-form">
         <h1>Welcome Back!</h1>
         <p className="subheading">Log in to access your Application.</p>
         <div>
+          <p className="par">Email</p>
+          <input
+            className="input"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          {errors.email && <p className="error">{errors.email}</p>}
 
-        <p className="par">Email</p>
-        <input
-          className="input"
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        {errors.email && <p className="error">{errors.email}</p>}
+          <p className="par">Password</p>
+          <input
+            className="input"
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          {errors.password && <p className="error">{errors.password}</p>}
+          {errors.general && <p className="error">{errors.general}</p>}
 
-        <p className="par">Password</p>
-        <input
-          className="input"
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        {errors.password && <p className="error">{errors.password}</p>}
-        {errors.general && <p className="error">{errors.general}</p>}
-
-        <div className="buttons">
-          <button className="btn" onClick={handleSubmit}>
-            Log In
-          </button>
+          <div className="buttons">
+            <button className="btn" onClick={handleSubmit}>
+              Log In
+            </button>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };
