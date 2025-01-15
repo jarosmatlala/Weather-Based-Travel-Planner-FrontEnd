@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import './Registration.css';
+import image from "../assets/sunny-weather.jpg"
+import { useState } from "react";
+
+
 
 const Registration = () => {
     const navigate = useNavigate();
@@ -37,8 +41,8 @@ const Registration = () => {
     const handleSubmit = async () => {
         if (validateForm()) {
             try {
-                const response = await fetch("http://localhost:5000/api/users/register", {
-                    method: "POST",
+                const response = await fetch("https://weather-based-travel-planner-backend.onrender.com/api/users/register",{
+                   method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -66,46 +70,57 @@ const Registration = () => {
     };
 
     return (
-        <div className="Reg1">
-            <h1>Register For A New Account</h1>
-            <div>
-                <p>Name And Surname</p>
-                <input
-                    className='input'
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                />
-                {errors.name && <p className="error">{errors.name}</p>}
+        <div className="container">
+            <div className="left-section" >
+                <h2>Your Best Weather-Led Travel Partner</h2>
+                <div className="illustrations">
+                    <img src={image} ></img>
+                </div>
+            </div>
+            <div className="right-section">
+                <h1>Register For A New Account</h1>
+                <div>
 
-                <p>Email</p>
-                <input
-                    className='input'
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                />
-                {errors.email && <p className="error">{errors.email}</p>}
+                    <p>Name And Surname</p>
+                    <input
+                        className='input'
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                    />
+                    {errors.name && <p className="error">{errors.name}</p>}
 
-                <p>Password</p>
-                <input
-                    className='input'
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                />
-                {errors.password && <p className="error">{errors.password}</p>}
+                    <p>Email Address</p>
+                    <input
+                        className='input'
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+                    {errors.email && <p className="error">{errors.email}</p>}
 
-                {errors.general && <p className="error">{errors.general}</p>}
+                    <p>Password</p>
+                    <input
+                        className='input'
+                        type="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                    />
+                    {errors.password && <p className="error">{errors.password}</p>}
 
-                <div className='btnReg'>
-                    <button className='btn' onClick={handleSubmit}>Register</button>
+                    {errors.general && <p className="error">{errors.general}</p>}
+
+                    <div className='btnReg'>
+                        <button className='btn' onClick={handleSubmit}>Register</button>
+                    </div>
+                    <p>Already have an account <a href="/LogIn">Sign In</a>     </p>
                 </div>
             </div>
         </div>
+
     );
 };
 

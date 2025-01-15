@@ -1,0 +1,65 @@
+.Forecast {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #48c6ef, #6f86d6);
+  color: #333;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: none;
+  margin: 20px auto;
+  width: calc(100% - 40px);
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+h1, h2 {
+  text-align: center;
+  color: #ffffff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+thead th {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+}
+
+tbody tr:hover {
+  background-color: #e0e0e0;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.expand img {
+  width: 40px;
+  height: 40px;
+}
+
+.HourlyForecast {
+  margin-top: 30px;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: block;
+  margin: 20px auto;
+}
+
+button:hover {
+  background-color: #388e3c;
+}
