@@ -1,6 +1,6 @@
 .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     background: #333;
     padding: 1rem 2rem;
@@ -37,6 +37,12 @@
     font-size: 1rem;
     margin-left: auto;
   }
+
+  .logout-button-container{
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+}
   
   .logout-btn:hover {
     background-color: #ff4500;

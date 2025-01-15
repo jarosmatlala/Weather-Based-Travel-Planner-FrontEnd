@@ -30,7 +30,7 @@ const Navbar = () => {
           <li><Link to="/favourites">Favorites</Link></li>
         </ul>
       )}
-      {auth && <button onClick={handleLogout} className="logout-btn">Logout</button>}
+      {auth && <div  className='logout-button-container'><button onClick={handleLogout} className="logout-btn">Logout</button></div>}
     </nav>
   );
 };
