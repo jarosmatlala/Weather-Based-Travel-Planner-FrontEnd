@@ -69,6 +69,10 @@ const Registration = () => {
         }
     };
 
+    const handleSignInRedirect = () => {
+        navigate('/LogIn');
+    };
+
     return (
         <div className="container">
             <div className="left-section" >
@@ -116,7 +120,13 @@ const Registration = () => {
                     <div className='btnReg'>
                         <button className='btn' onClick={handleSubmit}>Register</button>
                     </div>
-                    <p>Already have an account <a href="/LogIn">Sign In</a>     </p>
+                    <button 
+                            onClick={handleSignInRedirect} 
+                            style={{ background: 'none', border: 'none', color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}
+                        >
+                            Sign In
+                        </button>
+                
                 </div>
             </div>
         </div>

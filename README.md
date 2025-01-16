@@ -11,7 +11,7 @@ _Registration Screen: Shows the registration Screen ._
 - **Weather Data**: View current weather and 7-day forecast for any city.
 
 ![WeatherData](src/assets/Weather Data Activities.png)
-_Registration Screen: 7-day forecast for any city ._
+_WeatherSrc Screen: 7-day forecast for any city ._
 
 - **Weekly and Hourly Forecast**: Get detailed weekly and hourly weather data with suggestions for activities.
 
@@ -39,14 +39,21 @@ _Registration Screen: detailed favourites list with Delete Button ._
     ```
     cd "Weather-Based-Travel-Planner-FrontEnd"
     ```
-3. Install dependencies:
+3. Access Branch 
+
+```
+git checkout -b Dev"
+```
+
+4. Install dependencies:
     ```
     npm install
     ```
-4. Run the application:
+5. Run the application:
     ```
         npm run dev
     ```
+5. 
 
 ## Components
 
