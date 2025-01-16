@@ -5,20 +5,22 @@ This is the frontend of a weather application that provides users with current a
 
 - **User Authentication**: Register and log in to to search for favorite locations.
 
-![InputForm](assets/Registration.png)
+![InputForm](src/assets/Registration.png)
 _Registration Screen: Shows the registration Screen ._
 
 - **Weather Data**: View current weather and 7-day forecast for any city.
-![WeatherData](assets/Weather Data Activities.png)
+
+![WeatherData](src/assets/Weather Data Activities.png)
 _Registration Screen: 7-day forecast for any city ._
 
 - **Weekly and Hourly Forecast**: Get detailed weekly and hourly weather data with suggestions for activities.
-![WeeklyrData](assets/Weekly &Hourly.png)
+
+![WeeklyrData](src/assets/Weekly &Hourly.png)
 _Registration Screen: detailed weekly and hourly weather data with suggestions ._
 
 - **Favorites**: Save locations to your favorites list.
 
-![FavouriteData](assets/Favourite Location.png)
+![FavouriteData](src/assets/Favourite Location.png)
 _Registration Screen: detailed favourites list with Delete Button ._
 
 ## Technologies Used
